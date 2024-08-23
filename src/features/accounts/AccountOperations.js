@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deposit, payLoan, reqLoan, withdraw } from "./AccountSlice";
 
 function AccountOperations() {
   const [depositAmount, setDepositAmount] = useState("");
@@ -6,14 +8,35 @@ function AccountOperations() {
   const [loanAmount, setLoanAmount] = useState("");
   const [loanPurpose, setLoanPurpose] = useState("");
   const [currency, setCurrency] = useState("USD");
+  const {balance, loan, loanPurpose: curLoanPurpose} = useSelector(store => store.accountReducer)
+  const dispatch = useDispatch();
 
-  function handleDeposit() {}
 
-  function handleWithdrawal() {}
 
-  function handleRequestLoan() {}
+  function handleDeposit() {
+    if(!depositAmount) return
+    dispatch(deposit(depositAmount))
+    setDepositAmount(depositAmount => "")
+  }
 
-  function handlePayLoan() {}
+  function handleWithdrawal() {
+    if(!withdrawalAmount) return
+    if(withdrawalAmount> balance) return(alert(`Insufficient Balance you have only $${balance} left in you aza`))
+    if(balance > withdrawalAmount) dispatch(withdraw(withdrawalAmount))
+    setWithdrawalAmount(withdraw => "")
+  }
+
+  function handleRequestLoan() {
+    if(!loanAmount || !loanPurpose) return
+    if(loanAmount > 0) dispatch(reqLoan(loanAmount, loanPurpose))
+    setLoanAmount(loanAmount => "")
+    setLoanPurpose(lp => "")
+  }
+
+  function handlePayLoan() {
+    if(loan > balance) return(alert("Thief, Oni jibiti ni iwo"))
+    if(balance > loan)dispatch(payLoan())
+  }
 
   return (
     <div>
@@ -66,10 +89,10 @@ function AccountOperations() {
           <button onClick={handleRequestLoan}>Request loan</button>
         </div>
 
-        <div>
-          <span>Pay back $X</span>
+        {loan && <div>
+          <span>Pay back ${loan} - {curLoanPurpose}</span>
           <button onClick={handlePayLoan}>Pay loan</button>
-        </div>
+        </div>}
       </div>
     </div>
   );

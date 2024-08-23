@@ -31,16 +31,16 @@ export default function accountReducer(state= accountState, action){
     }
 }
 
-function deposit(amount){
+export function deposit(amount){
     return{type: 'account/balance', payload: amount}
 }
-function withdraw(amount){
+export function withdraw(amount){
     return{type: 'account/withdraw', payload: amount}
 }
-function reqLoan(amount, purpose){
+export function reqLoan(amount, purpose){
     return{type: 'request/loan', payload: {amount, purpose}}
 }
-function payLoan(){
+export function payLoan(){
     return{type: 'pay/loan'}
 }
 
