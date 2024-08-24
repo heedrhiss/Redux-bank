@@ -5,11 +5,11 @@ import BalanceDisplay from "./features/accounts/BalanceDisplay";
 import { useSelector } from "react-redux";
 
 function App() {
-  const customer = useSelector(store=> store.customerReducer.fullName)
+  const customer = useSelector(store=> store.customer.fullName)
 
   return (
     <div>
-      <h1>🏦 Redux Bank of Heedrhiss ⚛️</h1>
+      <h1>🏦Redux Bank of Heedrhiss⚛️</h1>
       {!customer ? <CreateCustomer /> :
       <>
       <Customer />

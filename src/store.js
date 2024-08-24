@@ -4,7 +4,7 @@ import { configureStore } from "@reduxjs/toolkit";
 // import { thunk } from "redux-thunk"; 
 // import { applyMiddleware, combineReducers, createStore } from "redux";
 import account from "./features/accounts/AccountSlice";
-import customerReducer from "./features/customers/CustomerSlice";
+import customer from "./features/customers/CustomerSlice";
 
 // const rootReducer = combineReducers({
 //     accountReducer,
@@ -13,7 +13,7 @@ import customerReducer from "./features/customers/CustomerSlice";
 
 const store = configureStore({reducer: {
     account,
-    customerReducer
+    customer
 }});
 
 
