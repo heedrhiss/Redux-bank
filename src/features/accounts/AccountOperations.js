@@ -8,14 +8,15 @@ function AccountOperations() {
   const [loanAmount, setLoanAmount] = useState("");
   const [loanPurpose, setLoanPurpose] = useState("");
   const [currency, setCurrency] = useState("USD");
-  const {balance, loan, loanPurpose: curLoanPurpose, isLoading} = useSelector(store => store.accountReducer)
+  const {balance, loan, loanPurpose: curLoanPurpose, isLoading} = useSelector((store) => store.account)
   const dispatch = useDispatch();
 
 
 
   function handleDeposit() {
     if(!depositAmount) return
-    dispatch(deposit(depositAmount, currency))
+    dispatch(deposit(depositAmount))
+    // dispatch(deposit(depositAmount, currency))
     setDepositAmount(depositAmount => "")
     setCurrency('USD');
   }
@@ -23,7 +24,7 @@ function AccountOperations() {
   function handleWithdrawal() {
     if(!withdrawalAmount) return
     if(withdrawalAmount> balance) return(alert(`Insufficient Balance you have only $${balance} left in you aza`))
-    if(balance > withdrawalAmount) dispatch(withdraw(withdrawalAmount))
+    if(balance >= withdrawalAmount) dispatch(withdraw(withdrawalAmount))
     setWithdrawalAmount(withdraw => "")
   }
 

@@ -1,4 +1,4 @@
-// Using pure redux features
+// Implimenting pure redux features
 
 import { thunk } from "redux-thunk"; 
 import { applyMiddleware, combineReducers, createStore } from "redux";
