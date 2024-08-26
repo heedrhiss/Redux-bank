@@ -15,6 +15,7 @@ const accountSlice = createSlice({
     reducers: {
         deposit(state, action){
             state.balance += action.payload
+            state.isLoading = false;
         },
         withdraw(state, action){
             state.balance -= action.payload
@@ -48,7 +49,7 @@ export function deposit(amount, currency){
     if(currency === 'USD') return{type: 'account/deposit', payload: amount};
 
     return async function(dispatch, getState){
-    dispatch({type: 'isLoading'})
+    dispatch({type: 'account/isLoading'})
     const res = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${currency}&to=USD`)
     const data = await res.json();
     const curValue = data.rates.USD
